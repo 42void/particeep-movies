@@ -32,7 +32,7 @@ const App = () => {
       setData(response)
       setFilteredData(response)
       setFilteredDataPagination(response)
-      paginationDatasCalculation(paginationLimit, response)
+      paginationDatasCalculation(4, response)
       const categories = response.map(movie => movie.category)
       const categoriesSet = Array.from(new Set(categories));
       setAllCategories(categoriesSet)
@@ -40,7 +40,7 @@ const App = () => {
       setInactiveTags([])
     }
     fetchMovies()
-  }, [paginationLimit])
+  }, [])
 
   const setTags = (moviesNotDeleted) => {
     const cat = moviesNotDeleted.map(movie => movie.category)
