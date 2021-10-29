@@ -1,13 +1,7 @@
 import React from 'react'
+import { Categories } from './Categories'
 
 export const Multiselect = ({activeTags, text, menuToggled, deleteTag, handleChange, toggleMenu, autocompletion, inactiveTags, addTag}) => {
-	
-	const Categories = ({text, autocompletion, inactiveTags, addTag}) => {
-		const dataSource = text !== "" ? autocompletion : inactiveTags 
-		if(inactiveTags.length > 0) return dataSource.map(cat => <div key={cat} onClick={()=>addTag(cat)} className="category">{cat}</div>)
-		return <div className="category">{"(no more categories)"}</div>
-	}
-	
 	return (
 		<>
 			<div className="multiselect-container">
