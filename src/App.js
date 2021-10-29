@@ -25,25 +25,25 @@ const App = () => {
   const [likedMovies, setLikedMovies] = useState([])
 
   useEffect(() => {
-    async function fetchMyAPI() {
-      let response = await movies$
+    async function fetchMovies() {
+      const response = await movies$
       setData(response)
       setFilteredData(response)
       setFilteredDataPagination(response)
       paginationDatasCalculation(paginationLimit, response)
       const categories = response.map(movie => movie.category)
-      let categoriesWithoutDuplicata = Array.from(new Set(categories));
+      const categoriesWithoutDuplicata = Array.from(new Set(categories));
       setAllCategories(categoriesWithoutDuplicata)
       updateCategoriesAndTags(response)
     }
-    fetchMyAPI()
+    fetchMovies()
   }, [])
 
   const updateCategoriesAndTags = (filteredMovies) => {
     const cat = filteredMovies.map(movie => movie.category)
-    let res = Array.from(new Set(cat));
+    const res = Array.from(new Set(cat));
     setActiveTags(res)
-    let diff = allCategories.filter(cat => !res.includes(cat));
+    const diff = allCategories.filter(cat => !res.includes(cat));
     setInactiveTags(diff)
   }
 
@@ -72,7 +72,6 @@ const App = () => {
     const newActiveTag = data.filter(d => d.category === tag)
     setFilteredData([...newActiveTag, ...filteredData])
     paginationDatasCalculation(paginationLimit, [...newActiveTag, ...filteredData])
-
   }
 
   const handleChange = (e) => {
@@ -84,14 +83,9 @@ const App = () => {
   }
 
   const Multiselect = () => {
-    if(inactiveTags.length > 0){
-      if(text !== ""){
-        return autocompletion.map((cat) => (<div key={cat} onClick={()=>addTag(cat)} className="category">{cat}</div>))
-      }else{
-        return inactiveTags.map((cat) => (<div key={cat} onClick={()=>addTag(cat)} className="category">{cat}</div>))
-      }
-    }
-    return (<div>(empty list)</div>)
+    const dataSource = text !== "" ? autocompletion : inactiveTags 
+    if(inactiveTags.length > 0) return dataSource.map(cat => <div key={cat} onClick={()=>addTag(cat)} className="category">{cat}</div>)
+    return <div className="category">{"(no more categories)"}</div>
   }
 
   const handleLimitChange = (e) => {
@@ -102,7 +96,7 @@ const App = () => {
 
   const paginationDatasCalculation = (limit, updatedDatas) => {
     const numberOfLoops = Math.ceil(updatedDatas.length / limit)
-    let chunks=[]
+    const chunks=[]
     let chunk=[]
     let start = 0
     let i = 0
@@ -110,8 +104,8 @@ const App = () => {
     while(i<numberOfLoops){     
       chunk = updatedDatas.slice(start, start + limit);
       start += limit
-      i++;
       chunks.push(chunk)
+      i++;
     }
     setChunks(chunks)
     setPageNumber(0)
@@ -121,21 +115,21 @@ const App = () => {
 
   const previousPage = () => {
     if(pageNumber > 0){
-      setPageNumber(pageNumber-1)
-      setFilteredDataPagination(chunks[pageNumber-1])
+      setPageNumber(pageNumber - 1)
+      setFilteredDataPagination(chunks[pageNumber - 1])
     }
   }
 
   const nextPage = () => {
-    if(pageNumber < Math.ceil(filteredData.length / paginationLimit - 1)){
-      setPageNumber(pageNumber+1)
-      setFilteredDataPagination(chunks[pageNumber+1])
+    if(pageNumber < Math.floor(filteredData.length / paginationLimit)){
+      setPageNumber(pageNumber + 1)
+      setFilteredDataPagination(chunks[pageNumber + 1])
     }
   }
 
   const updateNumberOfLikes = (movieId, up) => {
     const updatedMovie = filteredDataPagination.map((movie) => {
-      if(Number(movie.id) === Number(movieId)){
+      if(Number(movie.id) === movieId){
         const likes = up ? movie.likes + 1 : movie.likes - 1
         return {...movie, likes}
       }
@@ -146,7 +140,7 @@ const App = () => {
 
   const toggleThumb = (movieId) => {
     if(likedMovies.includes(movieId)){
-      const filteredLikes = likedMovies.filter((x) => x!==movieId)
+      const filteredLikes = likedMovies.filter((likedMovie) => likedMovie !== movieId)
       setLikedMovies(filteredLikes)
       updateNumberOfLikes(movieId, 0)
     }else{
@@ -158,9 +152,7 @@ const App = () => {
   const Gauge = ({likes, dislikes}) => {
     const calc = likes/(likes+dislikes) * 100
     const width = calc.toString() + "%"
-    return(
-      <div style={{height:"1rem", backgroundColor:"lightgreen", width}}/>
-    )
+    return <div style={{height:"1rem", backgroundColor:"#90EE90", width}}/>
   }
 
   const ThumbUp = ({id}) => {
@@ -189,7 +181,9 @@ const App = () => {
         </div>
         <div className="multiselect-input-container">
           <input className="multiselect-input" value={text} onChange={(e) => handleChange(e)}/>
-          <span className="multiselect-toggle" onClick={()=>toggleMenu(!menuToggled)}><img alt="arrow-down" className="arrow-down" src="https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v1.png"/></span>
+          <span className="multiselect-toggle" onClick={()=>toggleMenu(!menuToggled)}>
+            <img alt="multiselect-arrow-down" className="multiselect-arrow-down" src="https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v1.png"/>
+          </span>
         </div>
         {menuToggled && 
           <div className="multiselect-categories-container">  
@@ -198,23 +192,23 @@ const App = () => {
         }
       </div>
       <div className="cards-container">
-        {filteredDataPagination?.map((movie) => (
-          <div key={movie.id} className="movie-card">
+        {filteredDataPagination?.map(({id, title, category, likes, dislikes}) => (
+          <div key={id} className="movie-card">
             <div className="close-btn-container">
-              <button onClick={()=>deleteCard(movie.id)} className="close-btn">X</button>
+              <button onClick={()=>deleteCard(id)} className="close-btn">X</button>
             </div>
             <div className='movie-title'>
-                {movie.title}
+                {title}
             </div>
             <div className='movie-category'>
-                {movie.category}
+                {category}
             </div>
             <div className="thumb-gauge-container">
-              <div onClick={()=>toggleThumb(Number(movie.id))}>
-                <ThumbUp id={movie.id}/>
+              <div onClick={()=>toggleThumb(Number(id))}>
+                <ThumbUp id={id}/>
               </div>
               <div className="gauge-container">
-                <Gauge likes={movie.likes} dislikes={movie.dislikes}/>
+                <Gauge likes={likes} dislikes={dislikes}/>
               </div>
             </div>
           </div>
