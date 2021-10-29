@@ -1,7 +1,9 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { movies$ } from "./movies.js"
-import './App.css';
+import { movies$ } from "../movies.js"
+import { Pagination } from './Pagination';
+import { Cards } from './Cards';
+import { MultiselectAndTags } from './MultiselectAndTags';
 
 const App = () => {
 
@@ -83,12 +85,6 @@ const App = () => {
     setAutocompletion(filteredInactiveTags)
   }
 
-  const Multiselect = () => {
-    const dataSource = text !== "" ? autocompletion : inactiveTags 
-    if(inactiveTags.length > 0) return dataSource.map(cat => <div key={cat} onClick={()=>addTag(cat)} className="category">{cat}</div>)
-    return <div className="category">{"(no more categories)"}</div>
-  }
-
   const handleLimitChange = (e) => {
     const limit = Number(e.target.value)
     setPaginationLimit(limit);
@@ -150,83 +146,34 @@ const App = () => {
     }
   }
 
-  const Gauge = ({likes, dislikes}) => {
-    const calc = likes/(likes+dislikes) * 100
-    const width = calc.toString() + "%"
-    return <div style={{height:"1rem", backgroundColor:"#90EE90", width}}/>
-  }
-
-  const ThumbUp = ({id}) => {
-    const style = {
-      backgroundColor: likedMovies.includes(Number(id))?'#90EE90':'none',
-      cursor: 'pointer',
-      display: 'block',
-      margin: "-0.5rem 0.5rem 0 0.7rem",
-      borderRadius: "1rem",
-      padding: "0.3rem"
-    }
-    return <img alt="thumb-up" style={style} src="https://img.icons8.com/material-outlined/24/000000/facebook-like--v1.png"/>
-  }
-
   return (
     <>
       <h1 className="title">PARTICEEP MOVIES</h1>
-      <div className="multiselect-container">
-        <div className="tags-container">
-          {activeTags.map((tag) => 
-              <div key={tag} className="tag">
-                <span className="tag-text">{tag}</span>
-                <span className="tag-close" onClick={()=>deleteTag(tag)}>X</span>
-              </div>
-          )}
-        </div>
-        <div className="multiselect-input-container">
-          <input className="multiselect-input" value={text} onChange={(e) => handleChange(e)}/>
-          <span className="multiselect-toggle" onClick={()=>toggleMenu(!menuToggled)}>
-            <img alt="multiselect-arrow-down" className="multiselect-arrow-down" src="https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v1.png"/>
-          </span>
-        </div>
-        {menuToggled && 
-          <div className="multiselect-categories-container">  
-              <Multiselect/>
-          </div> 
-        }
-      </div>
-      <div className="cards-container">
-        {filteredDataPagination?.map(({id, title, category, likes, dislikes}) => (
-          <div key={id} className="movie-card">
-            <div className="close-btn-container">
-              <button onClick={()=>deleteCard(id)} className="close-btn">X</button>
-            </div>
-            <div className='movie-title'>
-                {title}
-            </div>
-            <div className='movie-category'>
-                {category}
-            </div>
-            <div className="thumb-gauge-container">
-              <div onClick={()=>toggleThumb(Number(id))}>
-                <ThumbUp id={id}/>
-              </div>
-              <div className="gauge-container">
-                <Gauge likes={likes} dislikes={dislikes}/>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="pagination-container">
-        <div className="pagination-navigation">
-          <div className="pagination-previous" onClick={()=>previousPage()}>{"<"} Précédent</div>
-          <select value={paginationLimit} onChange={(e)=>handleLimitChange(e)}>
-            <option defaultValue="4">4</option>
-            <option value="8">8</option>
-            <option value="12">12</option>
-          </select>
-          <div className="pagination-next" onClick={()=>nextPage()}>Suivant {">"}</div>
-        </div>
-        <div className="pagination-page-number">Page {pageNumber + 1}/{numberOfPages}</div>
-      </div>
+      <MultiselectAndTags
+        autocompletion={autocompletion} 
+        inactiveTags={inactiveTags} 
+        menuToggled={menuToggled} 
+        activeTags={activeTags} 
+        text={text} 
+        handleChange={handleChange} 
+        toggleMenu={toggleMenu}
+        deleteTag={deleteTag} 
+        addTag={addTag}
+      />
+      <Cards 
+        filteredDataPagination={filteredDataPagination}
+        likedMovies={likedMovies} 
+        toggleThumb={toggleThumb} 
+        deleteCard={deleteCard}
+      />
+      <Pagination 
+        paginationLimit={paginationLimit}
+        numberOfPages={numberOfPages}
+        pageNumber={pageNumber} 
+        handleLimitChange={handleLimitChange}
+        previousPage={previousPage}
+        nextPage={nextPage}
+      />
     </>
   );
 }
