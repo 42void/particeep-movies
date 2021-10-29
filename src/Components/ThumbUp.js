@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const ThumbUp = ({id, likedMovies}) => {
     const style = {
       backgroundColor: likedMovies.includes(Number(id)) ? '#90EE90' : 'transparent',

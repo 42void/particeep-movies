@@ -1,4 +1,3 @@
-import React from 'react'
 import { Gauge } from './Gauge'
 import { ThumbUp } from './ThumbUp'
 

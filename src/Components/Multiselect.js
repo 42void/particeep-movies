@@ -1,4 +1,3 @@
-import React from 'react'
 import { Categories } from './Categories'
 
 export const Multiselect = ({activeTags, text, menuToggled, deleteTag, handleChange, toggleMenu, autocompletion, inactiveTags, addTag}) => {

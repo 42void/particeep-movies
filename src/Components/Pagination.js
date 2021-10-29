@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const Pagination = ({paginationLimit, pageNumber, numberOfPages, previousPage, handleLimitChange, nextPage}) => {
 	return (
 		<>

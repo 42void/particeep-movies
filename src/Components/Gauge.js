@@ -1,5 +1,3 @@
-import React from 'react'
-
 export  const Gauge = ({likes, dislikes}) => {
     const calc = likes/(likes+dislikes) * 100
     const width = calc.toString() + "%"
