@@ -1,0 +1,151 @@
+body{
+  box-sizing: border-box;
+}
+
+.title{
+  text-align: center;
+}
+
+.multiselect-container{
+  height: 12rem;
+  padding: 4rem 0 1.8rem 0;
+  margin: 1rem auto 2rem;
+  width: 20rem;
+}
+
+.tags-container{
+  margin: 0.4rem 0;
+  height: 5rem;
+}
+
+.tag{
+  background-color: #f2f2f2;
+  display: inline-block;
+  margin:0.2rem;
+  padding: 0.3rem;
+}
+
+.tag-text{
+  padding: 0.5rem;
+}
+
+.tag-close{
+  cursor:pointer;
+  padding-right: 0.5rem;
+}
+
+.multiselect-input-container{
+  width: 20rem;
+  position: relative;
+}
+
+.multiselect-input{
+  border: #adadad 2px solid;
+  width: 19.5rem;
+  height: 1.4rem;
+}
+
+.multiselect-toggle{
+  position: absolute;
+  margin-left: -1.3rem;
+  margin-top: 0.3rem;
+  cursor: pointer;
+  color: #adadad;
+}
+
+.arrow-down{
+  width: 0.7rem;
+  cursor: pointer;
+}
+
+.multiselect-categories-container{
+  width: 20rem;
+  overflow-y: scroll;
+  scrollbar-width:none;
+  position: absolute;
+  max-height: 10rem;
+}
+
+.category{
+  border-width: 1px 0 1px 0;
+  border-color: #f2f2f2;
+  border-style: solid;
+  padding: 0.4rem 0;
+}
+
+.cards-container{
+  display: flex;
+  flex-wrap: wrap;  
+  justify-content: center;
+}
+
+.movie-card{
+  display: flex;
+  background-color:#D3D3D380;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  width: 20rem;
+  height: 10rem;
+  flex-direction: column;
+}
+
+.close-btn-container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn{
+  width: 2rem;
+  height: 2rem;
+  cursor:pointer;
+}
+
+.movie-title{
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.movie-category{
+  margin: 1rem;
+}
+
+.pagination-container{
+  display: flex;
+  margin:3rem 0 4rem 0;
+  flex-direction: column;
+}
+
+.pagination-previous{
+  cursor:pointer;
+  margin-right: 1rem;
+}
+
+.pagination-next{
+  cursor:pointer;
+  margin-left: 1rem;
+}
+
+.pagination-navigation{
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.pagination-page-number{
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.thumb-gauge-container{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.3rem;
+}
+
+.gauge-container{
+  width:12rem;
+  height: 1rem;
+  background-color: #fc3939;
+}
