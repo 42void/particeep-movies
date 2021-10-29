@@ -32,15 +32,16 @@ const App = () => {
       setFilteredDataPagination(response)
       paginationDatasCalculation(paginationLimit, response)
       const categories = response.map(movie => movie.category)
-      const categoriesWithoutDuplicata = Array.from(new Set(categories));
-      setAllCategories(categoriesWithoutDuplicata)
-      updateCategoriesAndTags(response)
+      const categoriesSet = Array.from(new Set(categories));
+      setAllCategories(categoriesSet)
+      setActiveTags(categoriesSet)
+      setInactiveTags([])
     }
     fetchMovies()
-  }, [])
+  }, [paginationLimit])
 
-  const updateCategoriesAndTags = (filteredMovies) => {
-    const cat = filteredMovies.map(movie => movie.category)
+  const setTags = (moviesNotDeleted) => {
+    const cat = moviesNotDeleted.map(movie => movie.category)
     const res = Array.from(new Set(cat));
     setActiveTags(res)
     const diff = allCategories.filter(cat => !res.includes(cat));
@@ -48,10 +49,10 @@ const App = () => {
   }
 
   const deleteCard = (id) => {
-    const filteredMovies = filteredData.filter(movie => movie.id !== id);
-    setFilteredData(filteredMovies)
-    updateCategoriesAndTags(filteredMovies)
-    paginationDatasCalculation(paginationLimit, filteredMovies)
+    const moviesNotDeleted = filteredData.filter(movie => movie.id !== id);
+    setFilteredData(moviesNotDeleted)
+    setTags(moviesNotDeleted)
+    paginationDatasCalculation(paginationLimit, moviesNotDeleted)
   }
 
   const deleteTag = (tag) => {
