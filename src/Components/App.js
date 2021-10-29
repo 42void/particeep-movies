@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { movies$ } from "../movies.js"
 import { Pagination } from './Pagination';
 import { Cards } from './Cards';
-import { MultiselectAndTags } from './MultiselectAndTags';
+import { Multiselect } from './Multiselect';
 
 const App = () => {
 
@@ -149,7 +149,7 @@ const App = () => {
   return (
     <>
       <h1 className="title">PARTICEEP MOVIES</h1>
-      <MultiselectAndTags
+      <Multiselect
         autocompletion={autocompletion} 
         inactiveTags={inactiveTags} 
         menuToggled={menuToggled} 
