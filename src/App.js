@@ -122,7 +122,7 @@ const App = () => {
   }
 
   const nextPage = () => {
-    if(pageNumber < Math.floor(filteredData.length / paginationLimit)){
+    if(pageNumber < Math.ceil(filteredData.length / paginationLimit - 1)){
       setPageNumber(pageNumber + 1)
       setFilteredDataPagination(chunks[pageNumber + 1])
     }
