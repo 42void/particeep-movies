@@ -2,7 +2,7 @@ import React from 'react'
 
 export const ThumbUp = ({id, likedMovies}) => {
     const style = {
-      backgroundColor: likedMovies.includes(Number(id))?'#90EE90':'none',
+      backgroundColor: likedMovies.includes(Number(id)) ? '#90EE90' : 'transparent',
       cursor: 'pointer',
       display: 'block',
       margin: "-0.5rem 0.5rem 0 0.7rem",
