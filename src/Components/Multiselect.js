@@ -1,6 +1,6 @@
 import { Categories } from './Categories'
 
-export const Multiselect = ({activeTags, text, menuToggled, deleteTag, handleChange, toggleMenu, autocompletion, inactiveTags, addTag}) => {
+export const Multiselect = ({activeTags, text, menuToggled, deleteTag, handleInputChange, toggleMenu, autocompletion, inactiveTags, addTag}) => {
 	return (
 		<>
 			<div className="multiselect-container">
@@ -13,7 +13,7 @@ export const Multiselect = ({activeTags, text, menuToggled, deleteTag, handleCha
 					)}
 				</div>
 				<div className="multiselect-input-container">
-					<input className="multiselect-input" value={text} onChange={(e) => handleChange(e)}/>
+					<input className="multiselect-input" value={text} onChange={(e) => handleInputChange(e)}/>
 					<span className="multiselect-toggle" onClick={()=>toggleMenu(!menuToggled)}>
 						<img alt="multiselect-arrow-down" className="multiselect-arrow-down" src="https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v1.png"/>
 					</span>

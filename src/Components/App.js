@@ -29,12 +29,12 @@ const App = () => {
   useEffect(() => {
     async function fetchMovies() {
       const response = await movies$
+      const categories = response.map(movie => movie.category)
+      const categoriesSet = Array.from(new Set(categories));
       setData(response)
       setFilteredData(response)
       setFilteredDataPagination(response)
       paginationDatasCalculation(4, response)
-      const categories = response.map(movie => movie.category)
-      const categoriesSet = Array.from(new Set(categories));
       setAllCategories(categoriesSet)
       setActiveTags(categoriesSet)
       setInactiveTags([])
@@ -77,7 +77,7 @@ const App = () => {
     paginationDatasCalculation(paginationLimit, [...newActiveTag, ...filteredData])
   }
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     toggleMenu(true)
     const txt = e.target.value
     setText(txt); 
@@ -93,12 +93,12 @@ const App = () => {
 
   const paginationDatasCalculation = (limit, updatedDatas) => {
     const numberOfLoops = Math.ceil(updatedDatas.length / limit)
-    const chunks=[]
-    let chunk=[]
+    const chunks = []
+    let chunk = []
     let start = 0
     let i = 0
     
-    while(i<numberOfLoops){     
+    while(i < numberOfLoops){     
       chunk = updatedDatas.slice(start, start + limit);
       start += limit
       chunks.push(chunk)
@@ -155,7 +155,7 @@ const App = () => {
         menuToggled={menuToggled} 
         activeTags={activeTags} 
         text={text} 
-        handleChange={handleChange} 
+        handleInputChange={handleInputChange} 
         toggleMenu={toggleMenu}
         deleteTag={deleteTag} 
         addTag={addTag}
