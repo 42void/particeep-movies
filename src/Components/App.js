@@ -25,6 +25,7 @@ const App = () => {
   const [numberOfPages, setNumberOfPages] = useState(0)
 
   const [likedMovies, setLikedMovies] = useState([])
+  const [dislikedMovies, setDislikedMovies] = useState([])
 
   useEffect(() => {
     async function fetchMovies() {
@@ -135,14 +136,47 @@ const App = () => {
     setFilteredDataPagination(updatedMovie)
   }
 
-  const toggleThumb = (movieId) => {
+  const updateNumberOfDislikes = (movieId, up) => {
+    const updatedMovie = filteredDataPagination.map((movie) => {
+      if(Number(movie.id) === movieId){
+        const dislikes = up ? movie.dislikes + 1 : movie.dislikes - 1
+        return {...movie, dislikes}
+      }
+      return movie
+    })
+    setFilteredDataPagination(updatedMovie)
+  }
+
+  const deleteFromLikedMovies = (id) => {
+    const filteredLikes = likedMovies.filter((likedMovie) => likedMovie !== id)
+    setLikedMovies(filteredLikes)
+  }
+
+  const deleteFromDislikedMovies = (id) => {
+    const filteredDislikes = dislikedMovies.filter((dislikedMovie) => dislikedMovie !== id)
+    setDislikedMovies(filteredDislikes)
+  }
+
+  const clickThumbUp = (movieId) => {
     if(likedMovies.includes(movieId)){
-      const filteredLikes = likedMovies.filter((likedMovie) => likedMovie !== movieId)
-      setLikedMovies(filteredLikes)
+      deleteFromLikedMovies(movieId)
       updateNumberOfLikes(movieId, 0)
     }else{
-      setLikedMovies([...likedMovies, movieId])    
+      setLikedMovies([...likedMovies, movieId])  
+      deleteFromDislikedMovies(movieId)
       updateNumberOfLikes(movieId, 1)
+    }
+  }
+
+  const clickThumbDown = (movieId) =>{
+    if(dislikedMovies.includes(movieId)){
+      deleteFromDislikedMovies(movieId)
+      updateNumberOfDislikes(movieId, 0)
+    }
+    else{
+      setDislikedMovies([...dislikedMovies, movieId])    
+      deleteFromLikedMovies(movieId)
+      updateNumberOfDislikes(movieId, 1)
     }
   }
 
@@ -163,7 +197,9 @@ const App = () => {
       <Cards 
         filteredDataPagination={filteredDataPagination}
         likedMovies={likedMovies} 
-        toggleThumb={toggleThumb} 
+        dislikedMovies={dislikedMovies}
+        clickThumbUp={clickThumbUp} 
+        clickThumbDown={clickThumbDown}
         deleteCard={deleteCard}
       />
       <Pagination 

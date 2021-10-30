@@ -1,7 +1,8 @@
 import { Gauge } from './Gauge'
+import { ThumbDown } from './ThumbDown'
 import { ThumbUp } from './ThumbUp'
 
-export const Cards = ({filteredDataPagination, likedMovies, toggleThumb, deleteCard}) => {
+export const Cards = ({filteredDataPagination, likedMovies, dislikedMovies, clickThumbUp, clickThumbDown, deleteCard}) => {
 	return (
 		<>
 			<div className="cards-container">
@@ -17,11 +18,14 @@ export const Cards = ({filteredDataPagination, likedMovies, toggleThumb, deleteC
 							{category}
 						</div>
 						<div className="thumb-gauge-container">
-							<div onClick={()=>toggleThumb(Number(id))}>
+							<div onClick={()=>clickThumbUp(Number(id))}>
 								<ThumbUp id={id} likedMovies={likedMovies}/>
 							</div>
 							<div className="gauge-container">
 								<Gauge likes={likes} dislikes={dislikes}/>
+							</div>
+							<div onClick={()=>clickThumbDown(Number(id))}>
+								<ThumbDown id={id} dislikedMovies={dislikedMovies}/>
 							</div>
 						</div>
 					</div>
