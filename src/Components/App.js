@@ -38,7 +38,6 @@ const App = () => {
       paginationDatasCalculation(4, response)
       setAllCategories(categoriesSet)
       setActiveTags(categoriesSet)
-      setInactiveTags([])
     }
     fetchMovies()
   }, [])
