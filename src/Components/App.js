@@ -46,8 +46,6 @@ const App = () => {
     const cat = moviesNotDeleted.map(movie => movie.category)
     const res = Array.from(new Set(cat));
     setActiveTags(res)
-    const diff = allCategories.filter(cat => !res.includes(cat));
-    setInactiveTags(diff)
   }
 
   const deleteCard = (id) => {
