@@ -1,0 +1,7 @@
+.multiselect-toggle{
+  position: absolute;
+  margin-left: -1.3rem;
+  margin-top: 0.3rem;
+  cursor: pointer;
+  color: #adadad;
+}

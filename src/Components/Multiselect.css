@@ -31,19 +31,6 @@
   height: 1.4rem;
 }
 
-.multiselect-toggle{
-  position: absolute;
-  margin-left: -1.3rem;
-  margin-top: 0.3rem;
-  cursor: pointer;
-  color: #adadad;
-}
-
-.multiselect-arrow-down{
-  width: 0.7rem;
-  cursor: pointer;
-}
-
 .multiselect-categories-container{
   width: 20rem;
   position: absolute;
