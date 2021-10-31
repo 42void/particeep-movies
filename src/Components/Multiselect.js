@@ -13,7 +13,7 @@ export const Multiselect = ({activeTags, text, menuToggled, deleteTag, handleInp
 						</div>
 					)}
 				</div>
-				<div className="multiselect-input-container">
+				<div>
 					<input className="multiselect-input" value={text} onChange={(e) => handleInputChange(e)}/>
 					<span className="multiselect-toggle" onClick={()=>toggleMenu(!menuToggled)}>
 						<img alt="multiselect-arrow-down" className="multiselect-arrow-down" src="https://img.icons8.com/ios-glyphs/30/000000/expand-arrow--v1.png"/>

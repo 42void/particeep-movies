@@ -1,13 +1,12 @@
 .multiselect-container{
-  height: 12rem;
-  padding: 4rem 0 1.8rem 0;
   margin: 1rem auto 2rem;
   width: 20rem;
+  min-height: 10rem;
 }
 
 .tags-container{
   margin: 0.4rem 0;
-  height: 5rem;
+  display: inline;
 }
 
 .tag{
@@ -24,11 +23,6 @@
 .tag-close{
   cursor:pointer;
   padding-right: 0.5rem;
-}
-
-.multiselect-input-container{
-  width: 20rem;
-  position: relative;
 }
 
 .multiselect-input{
@@ -52,8 +46,8 @@
 
 .multiselect-categories-container{
   width: 20rem;
-  overflow-y: scroll;
-  scrollbar-width:none;
   position: absolute;
-  max-height: 10rem;
+  background-color: #989494;
+  color: #fff;
+  z-index: 1;
 }
