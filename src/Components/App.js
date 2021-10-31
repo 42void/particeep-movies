@@ -7,7 +7,6 @@ import { Multiselect } from './Multiselect';
 
 const App = () => {
 
-  const [allCategories, setAllCategories] = useState([])
   const [inactiveTags, setInactiveTags] = useState([])
   const [activeTags, setActiveTags] = useState([])
   const [autocompletion, setAutocompletion] = useState([])
@@ -36,7 +35,6 @@ const App = () => {
       setFilteredData(response)
       setFilteredDataPagination(response)
       paginationDatasCalculation(4, response)
-      setAllCategories(categoriesSet)
       setActiveTags(categoriesSet)
     }
     fetchMovies()
