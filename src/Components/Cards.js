@@ -31,6 +31,8 @@ export const Cards = ({filteredDataPagination, likedMovies, dislikedMovies, clic
 						</div>
 					</div>
 			))}
+				<span className="hidden-card"></span>
+				<span className="hidden-card"></span>
 			</div>
 		</>
 	)

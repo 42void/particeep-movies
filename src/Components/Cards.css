@@ -47,3 +47,9 @@
   height: 1rem;
   background-color: #fc3939;
 }
+
+.hidden-card{
+  margin: 1rem;
+  padding: 1rem;
+  width: 20rem;
+}
