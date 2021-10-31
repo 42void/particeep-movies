@@ -29,6 +29,10 @@ export const Cards = ({filteredDataPagination, likedMovies, dislikedMovies, clic
 								<ThumbDown id={id} dislikedMovies={dislikedMovies}/>
 							</div>
 						</div>
+						<div className="number-likes">
+							<div>{likes}</div>
+							<div>{dislikes}</div>
+						</div>
 					</div>
 			))}
 				<span className="hidden-card"></span>

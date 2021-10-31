@@ -48,6 +48,13 @@
   background-color: #fc3939;
 }
 
+.number-likes{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1.3rem;
+  width: 16rem;
+}
+
 .hidden-card{
   margin: 1rem;
   padding: 1rem;

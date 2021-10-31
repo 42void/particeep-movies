@@ -121,25 +121,43 @@ const App = () => {
   }
 
   const updateNumberOfLikes = (movieId, up) => {
-    const updatedMovie = filteredDataPagination.map((movie) => {
+    const updatedData = filteredDataPagination.map((movie) => {
       if(Number(movie.id) === movieId){
         const likes = up ? movie.likes + 1 : movie.likes - 1
         return {...movie, likes}
       }
       return movie
     })
-    setFilteredDataPagination(updatedMovie)
+    setFilteredDataPagination(updatedData)
   }
 
   const updateNumberOfDislikes = (movieId, up) => {
-    const updatedMovie = filteredDataPagination.map((movie) => {
+    const updatedData = filteredDataPagination.map((movie) => {
       if(Number(movie.id) === movieId){
         const dislikes = up ? movie.dislikes + 1 : movie.dislikes - 1
         return {...movie, dislikes}
       }
       return movie
     })
-    setFilteredDataPagination(updatedMovie)
+    setFilteredDataPagination(updatedData)
+  }
+
+  const updateBothLikesAndDislikes = (movieId, toggleUp) => {
+    const updatedData = filteredDataPagination.map((movie) => {
+      if(Number(movie.id) === movieId){
+        if(toggleUp){
+          const likes = movie.likes + 1
+          const dislikes = movie.dislikes - 1
+          return {...movie, likes, dislikes}
+        }else{
+          const likes = movie.likes - 1
+          const dislikes = movie.dislikes + 1
+          return {...movie, likes, dislikes}
+        }
+      }
+      return movie
+    })
+    setFilteredDataPagination(updatedData)
   }
 
   const deleteFromLikedMovies = (id) => {
@@ -156,6 +174,10 @@ const App = () => {
     if(likedMovies.includes(movieId)){
       deleteFromLikedMovies(movieId)
       updateNumberOfLikes(movieId, 0)
+    }else if(dislikedMovies.includes(movieId)){
+      setLikedMovies([...likedMovies, movieId])  
+      deleteFromDislikedMovies(movieId)
+      updateBothLikesAndDislikes(movieId, 1)
     }else{
       setLikedMovies([...likedMovies, movieId])  
       deleteFromDislikedMovies(movieId)
@@ -167,6 +189,10 @@ const App = () => {
     if(dislikedMovies.includes(movieId)){
       deleteFromDislikedMovies(movieId)
       updateNumberOfDislikes(movieId, 0)
+    }else if(likedMovies.includes(movieId)){
+      setDislikedMovies([...dislikedMovies, movieId])    
+      deleteFromLikedMovies(movieId)
+      updateBothLikesAndDislikes(movieId, 0)
     }
     else{
       setDislikedMovies([...dislikedMovies, movieId])    
