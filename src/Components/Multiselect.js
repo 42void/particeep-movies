@@ -1,4 +1,5 @@
 import { Categories } from './Categories'
+import './Multiselect.css';
 
 export const Multiselect = ({activeTags, text, menuToggled, deleteTag, handleInputChange, toggleMenu, autocompletion, inactiveTags, addTag}) => {
 	return (

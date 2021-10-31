@@ -1,6 +1,7 @@
 import { Gauge } from './Gauge'
 import { ThumbDown } from './ThumbDown'
 import { ThumbUp } from './ThumbUp'
+import './Cards.css';
 
 export const Cards = ({filteredDataPagination, likedMovies, dislikedMovies, clickThumbUp, clickThumbDown, deleteCard}) => {
 	return (

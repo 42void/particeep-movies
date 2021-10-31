@@ -1,3 +1,5 @@
+import './Pagination.css';
+
 export const Pagination = ({paginationLimit, pageNumber, numberOfPages, previousPage, handleLimitChange, nextPage}) => {
 	return (
 		<>

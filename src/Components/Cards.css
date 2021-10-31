@@ -1,0 +1,48 @@
+.cards-container{
+  display: flex;
+  flex-wrap: wrap;  
+  justify-content: center;
+}
+
+.movie-card{
+  display: flex;
+  background-color:#D3D3D330;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 1rem;
+  width: 20rem;
+  height: 10rem;
+  flex-direction: column;
+}
+
+.close-btn-container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-btn{
+  width: 2rem;
+  height: 2rem;
+  cursor:pointer;
+}
+
+.movie-title{
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.movie-category{
+  margin: 1rem;
+}
+
+.thumb-gauge-container{
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.3rem;
+}
+
+.gauge-container{
+  width:12rem;
+  height: 1rem;
+  background-color: #fc3939;
+}
