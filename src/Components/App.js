@@ -120,39 +120,27 @@ const App = () => {
     }
   }
 
-  const updateNumberOfLikes = (movieId, up) => {
+  const updateLikesAndDislikes = (movieId, toggle, like, alreadyPushed) => {
     const updatedData = filteredDataPagination.map((movie) => {
       if(Number(movie.id) === movieId){
-        const likes = up ? movie.likes + 1 : movie.likes - 1
-        return {...movie, likes}
-      }
-      return movie
-    })
-    setFilteredDataPagination(updatedData)
-  }
-
-  const updateNumberOfDislikes = (movieId, up) => {
-    const updatedData = filteredDataPagination.map((movie) => {
-      if(Number(movie.id) === movieId){
-        const dislikes = up ? movie.dislikes + 1 : movie.dislikes - 1
-        return {...movie, dislikes}
-      }
-      return movie
-    })
-    setFilteredDataPagination(updatedData)
-  }
-
-  const updateBothLikesAndDislikes = (movieId, toggleUp) => {
-    const updatedData = filteredDataPagination.map((movie) => {
-      if(Number(movie.id) === movieId){
-        if(toggleUp){
-          const likes = movie.likes + 1
-          const dislikes = movie.dislikes - 1
-          return {...movie, likes, dislikes}
+        if(toggle){
+          if(like){
+            const likes = movie.likes + 1
+            const dislikes = movie.dislikes - 1
+            return {...movie, likes, dislikes}
+          }else{
+            const likes = movie.likes - 1
+            const dislikes = movie.dislikes + 1
+            return {...movie, likes, dislikes}
+          }
         }else{
-          const likes = movie.likes - 1
-          const dislikes = movie.dislikes + 1
-          return {...movie, likes, dislikes}
+          if(like){
+            const likes = alreadyPushed ? movie.likes - 1 : movie.likes + 1
+            return {...movie, likes}
+          }else{
+            const dislikes = alreadyPushed ? movie.dislikes - 1 : movie.dislikes + 1
+            return {...movie, dislikes}
+          }
         }
       }
       return movie
@@ -169,35 +157,35 @@ const App = () => {
     const filteredDislikes = dislikedMovies.filter((dislikedMovie) => dislikedMovie !== id)
     setDislikedMovies(filteredDislikes)
   }
-
+  
   const clickThumbUp = (movieId) => {
     if(likedMovies.includes(movieId)){
       deleteFromLikedMovies(movieId)
-      updateNumberOfLikes(movieId, 0)
+      updateLikesAndDislikes(movieId, 0, 1, 1)
     }else if(dislikedMovies.includes(movieId)){
       setLikedMovies([...likedMovies, movieId])  
       deleteFromDislikedMovies(movieId)
-      updateBothLikesAndDislikes(movieId, 1)
+      updateLikesAndDislikes(movieId, 1, 1)
     }else{
       setLikedMovies([...likedMovies, movieId])  
       deleteFromDislikedMovies(movieId)
-      updateNumberOfLikes(movieId, 1)
+      updateLikesAndDislikes(movieId, 0, 1, 0)
     }
   }
 
   const clickThumbDown = (movieId) =>{
     if(dislikedMovies.includes(movieId)){
       deleteFromDislikedMovies(movieId)
-      updateNumberOfDislikes(movieId, 0)
+      updateLikesAndDislikes(movieId, 0, 0, 1)
     }else if(likedMovies.includes(movieId)){
       setDislikedMovies([...dislikedMovies, movieId])    
       deleteFromLikedMovies(movieId)
-      updateBothLikesAndDislikes(movieId, 0)
+      updateLikesAndDislikes(movieId, 1, 0)
     }
     else{
       setDislikedMovies([...dislikedMovies, movieId])    
       deleteFromLikedMovies(movieId)
-      updateNumberOfDislikes(movieId, 1)
+      updateLikesAndDislikes(movieId, 0, 0, 0)
     }
   }
 
